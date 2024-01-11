@@ -29,6 +29,9 @@ class EmployeeForm extends React.Component
     
         // Log the current state to the console
         console.log('Form submitted:', this.state);
+
+        // Save the data to Local Storage
+        this.saveDataToLocalStorage();
     
         // Reset the state to clear the input fields
         this.setState({
@@ -38,7 +41,21 @@ class EmployeeForm extends React.Component
           department: ''
         });
     };
+
+    // Function to save the data to Local Storage
+    saveDataToLocalStorage = () => 
     
+    {
+        // Get existing data from Local Storage
+        const existingData = JSON.parse(localStorage.getItem('employeeData')) || [];
+
+        // Add the current form data to the existing data
+        const newData = [...existingData, this.state];
+
+        // Save the updated data back to Local Storage
+        localStorage.setItem('employeeData', JSON.stringify(newData));
+    };
+
     render() 
     {
         return (
