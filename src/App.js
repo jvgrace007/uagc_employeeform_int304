@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Import BrowserRouter, Routes, and Route
 import EmployeeForm from './Components/EmployeeForm';
 import EmployeeList from './Components/EmployeeList';
 
