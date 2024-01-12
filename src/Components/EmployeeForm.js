@@ -1,5 +1,5 @@
 import React from 'react';
-import '../EmployeeForm.css';
+import '../Content/EmployeeForm.css';
 
 class EmployeeForm extends React.Component 
 {
