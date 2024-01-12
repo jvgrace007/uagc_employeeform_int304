@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../Content/employee.css';
+import '../Content/EmployeeForm.css';
 
 // A functional component for displaying a list of employees
 function EmployeeList(props) {

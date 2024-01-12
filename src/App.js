@@ -1,24 +1,25 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Import BrowserRouter, Routes, and Route
 import EmployeeForm from './Components/EmployeeForm';
-
+import EmployeeList from './Components/EmployeeList';
 
 function App() {
+  const [employees, setEmployees] = useState([]);
+
+  const addEmployee = (newEmployee) => {
+    setEmployees([...employees, newEmployee]);
+  };
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-      <EmployeeForm />
-        <p>
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div>
+        <EmployeeForm onSubmit={addEmployee} />
+        <EmployeeList employees={employees} />
+      
+      </div>
+    </BrowserRouter>
   );
 }
 
