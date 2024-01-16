@@ -1,11 +1,9 @@
 import React from 'react';
-import '../Content/EmployeeForm.css';
 import { Link } from 'react-router-dom';
+import '../Content/EmployeeForm.css';
 
 // A functional component for displaying a list of employees
-function EmployeeList(props) 
-{
-  
+function EmployeeList(props) {
   // Render the employee list
   return (
     <div className="employee-list">

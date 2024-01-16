@@ -1,115 +1,79 @@
-import React from 'react';
+// import the necessary libraries
+import React, { useState } from 'react';
 import '../Content/EmployeeForm.css';
 
-class EmployeeForm extends React.Component 
-{
-    constructor(props) 
-    {
-        super(props);
-        this.state = 
-        {
-            name: '',
-            email: '',
-            title: '',
-            department: ''
-        };
-    }
-    
-    // Event handler for input field changes
-    handleInputChange = (event) => 
-    {
-        const { name, value } = event.target;
-        this.setState({ [name]: value });
+// define the function
+function EmployeeForm(props) {
+  
+    // define the varibales and setter functions, and set them to the default state
+    const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [title, setTitle] = useState('');
+  const [department, setDepartment] = useState('');
+
+  // define a submit function
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const employee = {
+      EmployeeId: Math.floor(Math.random() * 10000),
+      name,
+      email,
+      title,
+      department,
     };
+    props.onSubmit(employee);
+    setName('');
+    setEmail('');
+    setTitle('');
+    setDepartment('');
+  };
 
-    // Event handler for form submission
-    handleFormSubmit = (event) => 
-    {
-        event.preventDefault();
-    
-        // Log the current state to the console
-        console.log('Form submitted:', this.state);
 
-        // Save the data to Local Storage
-        this.saveDataToLocalStorage();
-    
-        // Reset the state to clear the input fields
-        this.setState({
-          name: '',
-          email: '',
-          title: '',
-          department: ''
-        });
-    };
-
-    // Function to save the data to Local Storage
-    saveDataToLocalStorage = () => 
-    
-    {
-        // Get existing data from Local Storage
-        const existingData = JSON.parse(localStorage.getItem('employeeData')) || [];
-
-        // Add the current form data to the existing data
-        const newData = [...existingData, this.state];
-
-        // Save the updated data back to Local Storage
-        localStorage.setItem('employeeData', JSON.stringify(newData));
-    };
-
-    render() 
-    {
-        return (
-        <div>
-            <form onSubmit={this.handleFormSubmit}>
-                <label>
-                    Name:
-                    <input
-                        type="text"
-                        name="name"
-                        value={this.state.name}
-                        onChange={this.handleInputChange}
-                    />  
-                </label>
-                <br />
-
-                <label>
-                    Email:
-                    <input
-                        type="email"
-                        name="email"
-                        value={this.state.email}
-                        onChange={this.handleInputChange}
-                    />
-                </label>
-                <br />
-
-                <label>
-                    Title:
-                    <input
-                        type="text"
-                        name="title"
-                        value={this.state.title}
-                        onChange={this.handleInputChange}
-                    />
-                </label>
-                <br />
-
-                <label>
-                    Department:
-                    <input
-                        type="text"
-                        name="department"
-                        value={this.state.department}
-                        onChange={this.handleInputChange}
-                    />
-                </label>
-                <br />
-
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-        );
-    }
+  // Render the HTML
+  return (
+    // define the form
+    <form className="employee-form" onSubmit={handleSubmit}>
+      <h2>Add Employee</h2>
+      <div>
+        <label htmlFor="name">Name: </label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="email">Email: </label>
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="title">Title: </label>
+        <input
+          type="title"
+          id="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="department">Department: </label>
+        <input
+          type="dept"
+          id="department"
+          value={department}
+          onChange={(e) => setDepartment(e.target.value)}
+        />
+      </div>
+      <button type="submit">Add</button>
+    </form>
+  );
 }
 
+// allow the Component to be called from elsewhere
 export default EmployeeForm;
