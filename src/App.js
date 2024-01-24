@@ -1,40 +1,43 @@
+// App.js
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Import BrowserRouter, Routes, and Route
-import EmployeeForm from './Components/EmployeeForm';
-import EmployeeDetail from './Components/EmployeeDetail';
-import EmployeeList from './Components/EmployeeList';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import DnDSignup from './Components/DnDSignup';
+import DnDPlayerDetail from './Components/DnDPlayerDetail';
+import Heroes from './Components/Heroes';
 
 function App() {
-  // define the property for the employee, the function, and the default state.
-  const [employees, setEmployees] = useState([]);
+  const [players, setPlayers] = useState([]);
 
-  // maintain an array of current employees
-  const addEmployee = (employee) => {
-    setEmployees([...employees, employee]);
+  const addPlayer = (player) => {
+    setPlayers([...players, player]);
   };
 
-  // save the employee array to local storage
   const saveData = () => {
-    localStorage.setItem('employees', JSON.stringify(employees));
+    localStorage.setItem('players', JSON.stringify(players));
   };
+
+  useEffect(() => {
+    const savedPlayers = JSON.parse(localStorage.getItem('players'));
+    if (savedPlayers) {
+      setPlayers(savedPlayers);
+    }
+  }, []);
 
   return (
-    // create the browser component and define the paths
     <BrowserRouter>
-    <div>
-      <Routes>
-        <Route path="/" element={
-          <>
-            <EmployeeForm onSubmit={addEmployee} />
-            <EmployeeList employees={employees} />
-            <button onClick={saveData}>Save Data</button>
-          </>
-        } />
-        <Route path="/employees/:id" element={<EmployeeDetail employees={employees} />} />
-      </Routes>
-    </div>
-  </BrowserRouter>
+      <div className="app-container">
+        <Routes>
+          <Route path="/" element={
+            <>
+              <DnDSignup onSubmit={addPlayer} />
+              <Heroes players={players} onSaveData={saveData} />
+            </>
+          } />
+          <Route path="/players/:id" element={<DnDPlayerDetail players={players} />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
